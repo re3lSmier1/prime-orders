@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "itemName": "Cheese Sandwich",
+    "basePrice": 290,
+    "itemPhoto": "/sandwiches.png",
+    "customize": [
+      {
+        "id": 1,
+        "ingredientName": "Extra Cheese",
+        "ingredientPhoto": "/cheese_slice.png",
+        "ingredientType": 1,
+        "ingredientMinAmount": 0,
+        "ingredientPrice": 70,
+        "currentValue": 0
+      },
+      {
+        "id": 2,
+        "ingredientName": "Mayo",
+        "ingredientPhoto": "/mayo.webp",
+        "ingredientType": 2,
+        "ingredientChoice": [
+          {
+            "id": 1,
+            "name": "None",
+            "price": 0
+          },
+          {
+            "id": 2,
+            "name": "Regular",
+            "price": 0
+          },
+          {
+            "id": 3,
+            "name": "Extra",
+            "price": 50
+          }
+        ],
+        "currentValue": {
+          "id": 2,
+          "name": "Regular",
+          "price": 0
+        }
+      }
+
+    ]
+  },
+  {
+    "id": 2,
+    "itemName": "Egg Sandwich",
+    "basePrice": 340,
+    "itemPhoto": "/Egg-Sandwich.png",
+    "customize": [
+      {
+        "id": 1,
+        "ingredientName": "Mustard",
+        "ingredientPhoto": "/mustard.png",
+        "ingredientType": 2,
+        "ingredientChoice": [
+          {
+            "id": 1,
+            "name": "None",
+            "price": 0
+          },
+          {
+            "id": 2,
+            "name": "Regular",
+            "price": 0
+          },
+          {
+            "id": 3,
+            "name": "Extra",
+            "price": 50
+          }
+        ],
+        "currentValue": 2
+      }
+    ]
+  }
+]
