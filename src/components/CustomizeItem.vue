@@ -16,6 +16,7 @@ const props = defineProps({
   }
 })
 let total = ref(0);
+let selectAmount = ref(0);
 function pushToCart(item) {
   itemStore.pushToCart(item)
   itemStore.dialogStatus = false
@@ -39,16 +40,24 @@ function totalItemCost() {
 }
 
 watch(() => itemStore.currentItem, (n, o) =>{
+  total.value = 0;
   for(let i = itemStore.currentItem.customize.length - 1; i >= 0; i--){
     //console.log(state.currentItem.customize[i].ingredientType)
+    console.log(itemStore.currentItem.customize[i].ingredientType === 1)
     if(itemStore.currentItem.customize[i].ingredientType === 1){
       total.value = parseInt(itemStore.currentItem.customize[i].currentValue) *
           parseInt(itemStore.currentItem.customize[i].ingredientPrice)
     }
-    else{
-      console.log(total.value + itemStore.currentItem.customize[i].currentValue.price)
-      total.value += parseInt(itemStore.currentItem.customize[i].currentValue.price)
+
+
+    for(let i = itemStore.currentItem.customize.length - 1; i >= 0; i--){
+      if(itemStore.currentItem.customize[i].ingredientType === 2) {
+        console.log(total.value + itemStore.currentItem.customize[i].currentValue.price)
+        total.value = total.value + itemStore.currentItem.customize[i].currentValue.price
+      }
     }
+
+
     total.value += itemStore.currentItem.basePrice
   }
 }, { deep: true })
