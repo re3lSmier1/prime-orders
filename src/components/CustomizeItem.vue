@@ -18,14 +18,14 @@ const props = defineProps({
 let total = ref(0);
 let selectAmount = ref(0);
 function pushToCart(item) {
-  itemStore.pushToCart(item)
+  itemStore.pushToCart(item, total.value)
   itemStore.dialogStatus = false
   router.push("/cart")
 }
 
 function totalItemCost() {
 
-  for(var i = itemStore.currentItem.customize.length - 1; i >= 0; i--){
+  for(var i = itemStore.currentItem.customize?.length - 1; i >= 0; i--){
     //console.log(state.currentItem.customize[i].ingredientType)
     if(itemStore.currentItem.customize[i].ingredientType === 1){
       total = parseInt(itemStore.currentItem.customize[i].currentValue) *
@@ -41,18 +41,18 @@ function totalItemCost() {
 
 watch(() => itemStore.currentItem, (n, o) =>{
   total.value = 0;
-  for(let i = itemStore.currentItem.customize.length - 1; i >= 0; i--){
+  for(let i = itemStore.currentItem?.customize?.length - 1; i >= 0; i--){
     //console.log(state.currentItem.customize[i].ingredientType)
-    console.log(itemStore.currentItem.customize[i].ingredientType === 1)
+    //console.log(itemStore.currentItem.customize[i].ingredientType === 1)
     if(itemStore.currentItem.customize[i].ingredientType === 1){
       total.value = parseInt(itemStore.currentItem.customize[i].currentValue) *
           parseInt(itemStore.currentItem.customize[i].ingredientPrice)
     }
 
 
-    for(let i = itemStore.currentItem.customize.length - 1; i >= 0; i--){
+    for(let i = itemStore.currentItem?.customize?.length - 1; i >= 0; i--){
       if(itemStore.currentItem.customize[i].ingredientType === 2) {
-        console.log(total.value + itemStore.currentItem.customize[i].currentValue.price)
+       // console.log(total.value + itemStore.currentItem.customize[i].currentValue.price)
         total.value = total.value + itemStore.currentItem.customize[i].currentValue.price
       }
     }

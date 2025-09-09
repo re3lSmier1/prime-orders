@@ -8,7 +8,9 @@ export const useItemStore = defineStore('items', {
     state: () => ({
         database: ref([]),
         dialogStatus: false,
-        currentItem: ref({}),
+        currentItem: ref({
+
+        }),
         cart: ref([]),
         currentItemTotal: ref(0),
     }),
@@ -46,7 +48,8 @@ export const useItemStore = defineStore('items', {
                     console.error('Error fetching data:', error);
                 });
         },
-        pushToCart(item: any) {
+        pushToCart(item: any, total: number) {
+            item["totalCost"] = total
             this.cart.push(item)
             this.currentItem = {}
         },
