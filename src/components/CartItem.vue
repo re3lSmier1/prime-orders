@@ -15,7 +15,7 @@ const props = defineProps({
 
     <div class="flex flex-row">
       <div class="basis-1/1 " style="">
-        <!--            {{ item }}-->
+                    {{ data }}
         <div class="flex ...">
           <div class=" shrink-0">
             <div class="p-3">

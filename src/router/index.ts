@@ -10,7 +10,7 @@ const router = createRouter({
     { path: '/', name: 'Home', component: HomeView, children: [
         { path: '/sandwiches', name: 'Sandwiches', component: Sandwiches },
       ]},
-    { path: '/cart', name: 'Cart', component: CartView, },
+    { path: '/cart', name: 'Cart', component: CartView, children: []},
     { path: '/admin', name: 'Admin', component: AdminView, },
 
   ],

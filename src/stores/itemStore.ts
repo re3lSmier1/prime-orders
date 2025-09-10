@@ -54,6 +54,7 @@ export const useItemStore = defineStore('items', {
             this.currentItem = {}
         },
         showSelectItem(item: any) {
+            this.currentItem = {}
             this.dialogStatus = true
             this.currentItem = item
 
