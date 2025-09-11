@@ -1,9 +1,10 @@
 <script setup>
 import {useItemStore} from "@/stores/itemStore";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import router from "@/router/index.js";
 const itemStore = useItemStore();
 const choice = ref()
+
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -62,6 +63,9 @@ watch(() => itemStore.currentItem, (n, o) =>{
   }
 }, { deep: true })
 
+onMounted(()=> {
+  itemStore.dialogStatus = true
+})
 </script>
 
 <template>

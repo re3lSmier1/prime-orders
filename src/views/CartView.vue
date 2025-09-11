@@ -31,7 +31,7 @@ onMounted(() =>{
     <div class="p-3">
       <Button variant="text" label="Add an item to the cart" as="router-link" to="/"></Button>
     </div>
-    <CustomizeItem :data="itemStore.currentItem" :visible="itemStore.dialogStatus" />
+<!--    <CustomizeItem :data="itemStore.currentItem" :visible="itemStore.dialogStatus" />-->
   </div>
 </template>
 

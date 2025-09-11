@@ -22,6 +22,9 @@ import TabPanel from 'primevue/tabpanel';
 import InputNumber from 'primevue/inputnumber';
 import SelectButton from 'primevue/selectbutton';
 import Toolbar from 'primevue/toolbar';
+import DynamicDialog from 'primevue/dynamicdialog';
+import DialogService from 'primevue/dialogservice';
+
 
 
 import App from './App.vue'
@@ -36,6 +39,7 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
+app.use(DialogService);
 app.component('Button', Button);
 app.component('Select', Select);
 app.component('Textarea', Textarea);
@@ -52,5 +56,6 @@ app.component('TabPanel', TabPanel);
 app.component('InputNumber', InputNumber);
 app.component('SelectButton', SelectButton);
 app.component('Toolbar', Toolbar);
+app.component('DynamicDialog', DynamicDialog);
 
 app.mount('#app')

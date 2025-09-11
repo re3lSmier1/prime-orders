@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {useItemStore} from "@/stores/itemStore.ts";
+import {onMounted} from "vue";
 
 const itemStore = useItemStore()
 const props = defineProps({
@@ -8,6 +9,7 @@ const props = defineProps({
     required: true,
   }
 })
+
 </script>
 
 <template>
@@ -31,7 +33,7 @@ const props = defineProps({
                 <Button label="Remove" class="mr-3" size="small" severity="danger"
                         @click="itemStore.deleteFromCart(data)"/>
                 <Button label="View" size="small" severity="secondary"
-                        @click="itemStore.showSelectItem(data)"/>
+                        as="router-link" :to="'/cart/item/' + data?.id"/>
               </div>
             </div>
           </div>
