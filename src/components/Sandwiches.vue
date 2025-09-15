@@ -3,7 +3,9 @@ import {onMounted, readonly, ref} from "vue";
 import data from "../database/items.json"
 import { useItemStore } from "@/stores/itemStore";
 import CustomizeItem from "@/components/CustomizeItem.vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const visible = ref(false)
 const value = ref(0)
 const choice = ref("")
@@ -19,8 +21,9 @@ const sandwichItems = ref([])
 
 function selectItem(data: any) {
   console.log(data)
-  itemStore.dialogStatus = true
-  itemStore.currentItem = data
+  /*itemStore.dialogStatus = true
+  itemStore.currentItem = data*/
+  router.push(`/sandwiches/item/${data.Id}`)
 }
 onMounted(()=>{
   //sandwichItems.value = itemStore.database
@@ -33,7 +36,7 @@ onMounted(()=>{
     <div class="flex flex-row">
       <div class="basis-1/4 " v-for="item in itemStore.database" :key="item.id" style="cursor: pointer;">
         <Card  unstyled class="transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg rounded"
-          @click="itemStore.showSelectItem(item)" >
+          @click="selectItem(item)" >
           <template #header>
             <div class="p-3">
               <Image :src="item.itemPhoto" alt="Image"  />
@@ -41,7 +44,7 @@ onMounted(()=>{
           </template>
           <template #title>
               <div class="px-3 font-bold " style="font-size: 24px;">
-                {{ item.itemName }}
+                {{ item.Name }}
               </div>
             </template>
             <template #subtitle>
@@ -51,7 +54,8 @@ onMounted(()=>{
         </Card>
       </div>
     </div>
-    <CustomizeItem :data="itemStore.currentItem" :visible="itemStore.dialogStatus" />
+<!--    <CustomizeItem :data="itemStore.currentItem" :visible="itemStore.dialogStatus" />-->
+    <RouterView />
   </div>
 </template>
 

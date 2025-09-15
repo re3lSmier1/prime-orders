@@ -10,7 +10,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', name: 'Home', component: HomeView, children: [
-        { path: '/sandwiches', name: 'Sandwiches', component: Sandwiches },
+        { path: '/sandwiches', name: 'Sandwiches', component: Sandwiches, children: [
+                { path: "item/:id", name: 'Order Item', component: CustomizeItem },
+            ]
+        },
       ]},
     { path: '/cart', name: 'Cart', component: CartView, children: [
         { path: "item/:id", name: 'CartItem', component: CustomizeItem },

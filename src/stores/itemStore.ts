@@ -8,15 +8,14 @@ export const useItemStore = defineStore('items', {
     state: () => ({
         database: ref([]),
         dialogStatus: false,
-        currentItem: ref({
-
-        }),
+        currentItem: ref({}),
+        currentIngredients: ref([]),
         cart: ref([]),
         currentItemTotal: ref(0),
     }),
     getters: {
         //doubleCount: (state) => state.count * 2,
-        totalItemCost: (state) => () =>{
+        totalItemCost: (state) => () => {
             //let total = ref(0);
             for(var i = state.currentItem.customize.length - 1; i >= 0; i--){
                 //console.log(state.currentItem.customize[i].ingredientType)
@@ -37,7 +36,7 @@ export const useItemStore = defineStore('items', {
     },
     actions: {
         getItems(){
-            axios.get('/items.json') // Replace with the actual path to your JSON file
+            axios.get('http://localhost:5122/Item/GetAllItems') // Replace with the actual path to your JSON file
                 .then(response => {
                     // The JSON data is automatically parsed by Axios and available in response.data
                     console.log(response.data);
@@ -47,6 +46,19 @@ export const useItemStore = defineStore('items', {
                 .catch(error => {
                     console.error('Error fetching data:', error);
                 });
+        },
+        getItem( Id: any){
+            axios.get(`http://localhost:5122/Item/GetItem?id=${Id}`)
+                .then(response => {
+                    this.currentItem = response.data;
+                    console.log(response.data);
+                })
+        },
+        getCurrentIngredients(id: any){
+            axios.get(`http://localhost:5122/Ingredient/GetIngredientsByItem?id=${id}`)
+                .then(response => {
+                    this.currentIngredients = response.data;
+                })
         },
         pushToCart(item: any, total: number) {
             item["totalCost"] = total
