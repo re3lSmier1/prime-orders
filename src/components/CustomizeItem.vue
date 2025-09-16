@@ -3,6 +3,7 @@ import {useItemStore} from "@/stores/itemStore";
 import {onMounted, ref, watch} from "vue";
 import router from "@/router/index.js";
 import {useRoute} from "vue-router";
+import IngredientOption from "@/components/IngredientOption.vue";
 const route = useRoute()
 const itemStore = useItemStore();
 const choice = ref()
@@ -112,37 +113,21 @@ onMounted(()=> {
                     <template #title>
                       <div class="px-3 font-bold " style="font-size: 16px;">
                         {{ ingredient?.IngredientName }}
+
                       </div>
                     </template>
                     <template #subtitle>
+
+<!--                      {{ ingredient }}-->
                       <div class="font-bold px-3" style="color: green; font-size: 12px">
-                        {{
-                          typeof ingredient?.currentValue === "number" ?
-                              ('$ ' + (parseInt(ingredient?.currentValue) * ingredient.IngredientPrice))
-                              : (ingredient?.currentValue.price === 0 ? "Free": '$ ' + (ingredient?.currentValue.price))
+                        {{ (itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === "Iterative" ?
+                              ('$ ' + (ingredient?.CurrentValue * (ingredient?.IngredientPrice))) :
+                                (ingredient?.CurrentValue.price === 0 ? "Free": '$ ' + (ingredient?.CurrentValue.price))
                         }}
                       </div>
                     </template>
                     <template #footer>
-                      <div class="p-3">
-                        <InputNumber size="small" :defaultValue="ingredient?.currentValue" v-if="ingredient?.ingredientType === 1"
-                                     inputId="horizontal-buttons" showButtons buttonLayout="horizontal"
-                                     :step="1" :min="ingredient?.ingredientMinAmount"  fluid
-
-                                     v-model="ingredient.currentValue"
-                        >
-                          <template #incrementbuttonicon>
-                            <span class="pi pi-plus" />
-                          </template>
-                          <template #decrementbuttonicon>
-                            <span class="pi pi-minus" />
-                          </template>
-                        </InputNumber>
-                        <Select v-model="ingredient.currentValue" v-if="ingredient?.ingredientType === 2"
-                                :options="ingredient?.ingredientChoice"
-                                optionLabel="name" placeholder="Select an amount"
-                                class="w-full md:w-56" size="small"/>
-                      </div>
+                      <IngredientOption :ingredient="ingredient"/>
                     </template>
                   </Card>
                 </div>

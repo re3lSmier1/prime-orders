@@ -12,6 +12,8 @@ export const useItemStore = defineStore('items', {
         currentIngredients: ref([]),
         cart: ref([]),
         currentItemTotal: ref(0),
+        ingredientTypes: ref([]),
+        ingredientChoices: ref([])
     }),
     getters: {
         //doubleCount: (state) => state.count * 2,
@@ -32,6 +34,10 @@ export const useItemStore = defineStore('items', {
             //console.log(total)
             //return total;
             //console.log(item)
+        },
+        getCurrentIngredientType: (state) => (id: any) => {
+            console.log(state.ingredientTypes)
+            return state.ingredientTypes.find(item => item.Id === id);
         }
     },
     actions: {
@@ -58,6 +64,18 @@ export const useItemStore = defineStore('items', {
             axios.get(`http://localhost:5122/Ingredient/GetIngredientsByItem?id=${id}`)
                 .then(response => {
                     this.currentIngredients = response.data;
+                })
+        },
+        getIngredientTypes(){
+            axios.get(`http://localhost:5122/Ingredient/GetAllIngredientTypes`).
+                then(response => {
+                    this.ingredientTypes = response.data;
+            })
+        },
+        getIngredientChoicesByIngredientId(id: any){
+            axios.get(`http://localhost:5122/IngredientChoice/GetIngredientChoicesForIngredient?id=${id}`)
+                .then(response => {
+                    this.ingredientChoices = response.data;
                 })
         },
         pushToCart(item: any, total: number) {
