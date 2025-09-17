@@ -12,7 +12,7 @@ const props = defineProps({
 })
 
 watch(()=> props.ingredient, (n, o) => {
-  alert(n)
+  //alert(n)
 }, { deep: true })
 </script>
 
@@ -32,7 +32,7 @@ watch(()=> props.ingredient, (n, o) => {
         <span class="pi pi-minus" />
       </template>
     </InputNumber>
-    <Select v-model="ingredient.CurrentValue" v-if="(itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === 'Choice' "
+    <Select v-model="ingredient.CurrentChoice" v-if="(itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === 'Choice' "
             :options="ingredient?.IngredientChoice"
             optionLabel="name" placeholder="Select an amount"
             class="w-full md:w-56" size="small"/>
