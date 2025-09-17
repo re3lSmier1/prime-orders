@@ -33,8 +33,8 @@ watch(()=> props.ingredient, (n, o) => {
       </template>
     </InputNumber>
     <Select v-model="ingredient.CurrentChoice" v-if="(itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === 'Choice' "
-            :options="ingredient?.IngredientChoice"
-            optionLabel="name" placeholder="Select an amount"
+            :options="ingredient?.IngredientChoices"
+            optionLabel="Name" placeholder="Select an amount"
             class="w-full md:w-56" size="small"/>
   </div>
 </template>

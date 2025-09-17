@@ -122,7 +122,7 @@ onMounted(()=> {
                       <div class="font-bold px-3" style="color: green; font-size: 12px">
                         {{ (itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === "Iterative" ?
                               ('$ ' + (ingredient?.CurrentValue * (ingredient?.IngredientPrice))) :
-                                (ingredient?.CurrentValue.price === 0 ? "Free": '$ ' + (ingredient?.CurrentValue.price))
+                                (ingredient?.CurrentChoice?.Price === 0 ? "Free": '$ ' + (ingredient?.CurrentChoice?.Price))
                         }}
                       </div>
                     </template>
