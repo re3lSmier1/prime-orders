@@ -9,6 +9,8 @@ export const useItemStore = defineStore('items', {
         database: ref([]),
         dialogStatus: false,
         currentItem: ref({}),
+        businessCategories: ref([]),
+        itemsList: ref([]),
         currentIngredients: ref([]),
         cart: ref([]),
         currentItemTotal: ref(0),
@@ -41,8 +43,8 @@ export const useItemStore = defineStore('items', {
         }
     },
     actions: {
-        getItems(){
-            axios.get('http://localhost:5122/Item/GetAllItems') // Replace with the actual path to your JSON file
+        getItems(id: any){
+            axios.get(`https://localhost:7151/Item/GetItemByBusiness?id=1`) // Replace with the actual path to your JSON file
                 .then(response => {
                     // The JSON data is automatically parsed by Axios and available in response.data
                     console.log(response.data);
@@ -54,26 +56,40 @@ export const useItemStore = defineStore('items', {
                 });
         },
         getItem( Id: any){
-            axios.get(`http://localhost:5122/Item/GetItem?id=${Id}`)
+            axios.get(`https://localhost:7151/Item/GetItemDetail?itemId=${Id}`)
                 .then(response => {
                     this.currentItem = response.data;
                     console.log(response.data);
                 })
         },
+        getBusinessCategories(){
+            axios.get(`https://localhost:7151/Business/GetBusinessCategories`)
+                .then(response => {
+                    this.businessCategories = response.data;
+                    console.log(response.data);
+                })
+        },
+        getItemsByCategories(categoryId: any, businessId: any){
+            axios.get(`https://localhost:7151/Item/GetItemsByCategory?categoryId=${categoryId}&businessId=${businessId}`)
+                .then(response => {
+                    this.database = response.data;
+                    console.log(response.data);
+                })
+        },
         getCurrentIngredients(id: any){
-            axios.get(`http://localhost:5122/Ingredient/GetIngredientsByItem?id=${id}`)
+            axios.get(`http://localhost:5175/Ingredient/GetIngredientsByItem?id=${id}`)
                 .then(response => {
                     this.currentIngredients = response.data;
                 })
         },
         getIngredientTypes(){
-            axios.get(`http://localhost:5122/Ingredient/GetAllIngredientTypes`).
+            axios.get(`http://localhost:5175/Ingredient/GetAllIngredientTypes`).
                 then(response => {
                     this.ingredientTypes = response.data;
             })
         },
         getIngredientChoicesByIngredientId(id: any){
-            axios.get(`http://localhost:5122/IngredientChoice/GetIngredientChoicesForIngredient?id=${id}`)
+            axios.get(`http://localhost:5175/IngredientChoice/GetIngredientChoicesForIngredient?id=${id}`)
                 .then(response => {
                     this.ingredientChoices = response.data;
                 })

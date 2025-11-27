@@ -42,6 +42,9 @@ function totalItemCost() {
 
   }
 }
+function callRewrite(event){
+  router.back()
+}
 
 watch(() => itemStore.currentItem, (n, o) =>{
   total.value = 0;
@@ -68,7 +71,7 @@ watch(() => itemStore.currentItem, (n, o) =>{
 
 onMounted(()=> {
   itemStore.getItem(route.params.id)
-  itemStore.getCurrentIngredients(route.params.id)
+  //itemStore.getCurrentIngredients(route.params.id)
   console.log(route.params.id)
   //alert()
   itemStore.dialogStatus = true
@@ -77,14 +80,19 @@ onMounted(()=> {
 
 <template>
   <Teleport to="body">
-    <Dialog v-model:visible="itemStore.dialogStatus" modal :header="itemStore.currentItem?.Name" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <Dialog v-model:visible="itemStore.dialogStatus" modal
+            :header="itemStore.currentItem?.name" :style="{ width: '50rem' }"
+            :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+            @hide="callRewrite($event)"
+    >
       <div class="p-3" style="text-align: center">
-        <img :src="itemStore.currentItem?.itemPhoto" alt="Sandwiches"
+        <img :src="itemStore.currentItem?.image" alt="Sandwiches"
              style="max-width: 200px; max-height: 200px; height: auto; width: auto;
                     display: block; margin-left: auto; margin-right: auto; margin-bottom: 7px;"
         />
+
         <div style="font-size: 24px; font-weight: bold; margin-bottom: -10px;">
-          {{ itemStore.currentItem?.Name }}
+          {{ itemStore.currentItem?.name }}
         </div>
         <div class="" style="color: #777; font-weight: bold; font-size: 36px">
           $ {{ itemStore.currentItem?.basePrice }}.00
@@ -100,30 +108,30 @@ onMounted(()=> {
           <TabPanels>
             <TabPanel value="0">
               <div class="grid grid-cols-3 gap-4">
-                <div class="..." v-for="ingredient in itemStore.currentIngredients">
+                <div class="..." v-for="ingredient in itemStore.currentItem?.ingredients">
                   <Card  unstyled class="rounded text-center"
                          style="cursor: pointer;">
                     <template #header>
                       <div class="p-3 ">
-                        <img :src="ingredient?.IngredientPhoto"  alt="Image"
+                        <img :src="ingredient?.image"  alt="Image"
                              style="max-height: 100px; max-width: 100px; height: auto; width: auto; margin-left: auto; margin-right: auto; "
                         />
                       </div>
                     </template>
                     <template #title>
                       <div class="px-3 font-bold " style="font-size: 16px;">
-                        {{ ingredient?.IngredientName }}
+                        {{ ingredient?.name }}
 
                       </div>
                     </template>
                     <template #subtitle>
 
-<!--                      {{ ingredient }}-->
                       <div class="font-bold px-3" style="color: green; font-size: 12px">
-                        {{ (itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === "Iterative" ?
-                              ('$ ' + (ingredient?.CurrentValue * (ingredient?.IngredientPrice))) :
-                                (ingredient?.CurrentChoice?.Price === 0 ? "Free": '$ ' + (ingredient?.CurrentChoice?.Price))
-                        }}
+                        {{ ingredient?.typeId === 2 ? ('$ ' + (ingredient?.increment.currentValue * (ingredient?.increment.price))) :
+                          (ingredient?.choices[ingredient?.choices?.findIndex((i) => i.current === 1)].price === 0
+                              ? "Free": '$ ' + (ingredient?.choices[ingredient?.choices?.findIndex((i) => i.current === 1)].price))}}
+
+
                       </div>
                     </template>
                     <template #footer>

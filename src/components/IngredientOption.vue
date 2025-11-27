@@ -2,6 +2,8 @@
 
 import {useItemStore} from "@/stores/itemStore.ts";
 import {watch} from "vue";
+import IngredientSelect from "@/components/IngredientSelect.vue";
+import IngredientIncrement from "@/components/IngredientIncrement.vue";
 
 const itemStore = useItemStore()
 const props = defineProps({
@@ -18,24 +20,8 @@ watch(()=> props.ingredient, (n, o) => {
 
 <template>
   <div class="p-3">
-    <InputNumber size="small" :defaultValue="ingredient?.CurrentValue"
-                 v-if="(itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === 'Iterative'"
-                 inputId="horizontal-buttons" showButtons buttonLayout="horizontal"
-                 :step="1" :min="ingredient?.IngredientMinAmount"  fluid
-
-                 v-model="ingredient.CurrentValue"
-    >
-      <template #incrementbuttonicon>
-        <span class="pi pi-plus" />
-      </template>
-      <template #decrementbuttonicon>
-        <span class="pi pi-minus" />
-      </template>
-    </InputNumber>
-    <Select v-model="ingredient.CurrentChoice" v-if="(itemStore.getCurrentIngredientType(ingredient.IngredientType)).Name === 'Choice' "
-            :options="ingredient?.IngredientChoices"
-            optionLabel="Name" placeholder="Select an amount"
-            class="w-full md:w-56" size="small"/>
+    <IngredientIncrement v-if="ingredient.typeId === 2" :ingredient="ingredient" />
+    <IngredientSelect v-if="ingredient.typeId === 1" :ingredient="ingredient" />
   </div>
 </template>
 

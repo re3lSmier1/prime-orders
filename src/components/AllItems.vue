@@ -1,41 +1,34 @@
 <script setup lang="ts">
-import {onMounted, readonly, ref, watch} from "vue";
+import {onMounted, readonly, ref} from "vue";
 import data from "../database/items.json"
 import { useItemStore } from "@/stores/itemStore";
 import CustomizeItem from "@/components/CustomizeItem.vue";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 
-const route = useRoute();
 const router = useRouter()
-/*const visible = ref(false)
+const visible = ref(false)
 const value = ref(0)
 const choice = ref("")
 const amounts = ref([
   { name: 'None', code: 'none' },
   { name: 'Regular', code: 'Regular' },
   { name: 'Extra', code: 'Extra' },
-])*/
+])
 const itemStore = useItemStore()
-/*const options = ref(['None', 'Regular', 'Extra']);
+const options = ref(['None', 'Regular', 'Extra']);
 const items = ref(data)
-const sandwichItems = ref([])*/
+const sandwichItems = ref([])
 
 function selectItem(data: any) {
   console.log(data)
   /*itemStore.dialogStatus = true
   itemStore.currentItem = data*/
-  //router.push({ path: ''})
-  router.push(`/categories/${route.params.categoryId}/item/${data.id}`)
+  router.push(`/categories/${data.id}`)
 }
-
-
-
 onMounted(()=>{
-  console.log(route.params.categoryId)
   //sandwichItems.value = itemStore.database
   //itemStore.getItems()
-  //itemStore.getBusinessCategories()
-  itemStore.getItemsByCategories(route.params.categoryId,1)
+  itemStore.getBusinessCategories()
 })
 </script>
 

@@ -24,6 +24,9 @@ import SelectButton from 'primevue/selectbutton';
 import Toolbar from 'primevue/toolbar';
 import DynamicDialog from 'primevue/dynamicdialog';
 import DialogService from 'primevue/dialogservice';
+import Ripple from 'primevue/ripple';
+
+
 import OrderLayout from './layouts/OrderLayout.vue'
 import AdminLayout from './layouts/AdminLayout.vue'
 
@@ -41,6 +44,8 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
+
+app.directive('ripple', Ripple);
 app.use(DialogService);
 app.component('order-layout', OrderLayout)
 app.component('admin-layout', AdminLayout)

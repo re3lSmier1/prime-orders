@@ -16,7 +16,7 @@ const layout = computed(() => {
 const itemStore = useItemStore()
 
 onMounted(() => {
-  itemStore.getIngredientTypes()
+  //itemStore.getIngredientTypes()
 })
 </script>
 

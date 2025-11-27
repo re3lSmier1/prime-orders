@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import {useItemStore} from "@/stores/itemStore.ts";
+import {useRoute} from "vue-router";
 const itemStore = useItemStore();
+const route = useRoute();
 </script>
 
 <template>
   <Toolbar style="border: none; border-bottom: 1px solid #ededed; padding: 5px">
     <template #start>
       <div class="flex items-center gap-2">
-        <div class="ps-5 font-bold">{{ this.$route.name }}</div>
+        <div class="ps-5 font-bold">{{ route.name }}</div>
       </div>
     </template>
 
