@@ -14,13 +14,14 @@ const props = defineProps({
 
 watch(selectedIngredientIncrement, (n, o) => {
   console.log(n)
-  let choices = itemStore.currentItem.ingredients[itemStore.currentItem.ingredients?.findIndex((i: any) => i.id === n.ingredientId)]
+  let choices = itemStore.currentItem.ingredients[itemStore.currentItem.ingredients?.findIndex((i: any) => i.id === props.ingredient.id)]
   console.log(choices)
   choices.increment.currentValue = selectedIngredientIncrement.value
-  //let increment = ingredient?.increment.currentValue * (ingredient?.increment.price)
+  itemStore.totalItemCost()
 })
 
 onMounted(() => {
+  //itemStore.totalItemCost()
   console.log(props.ingredient)
   selectedIngredientIncrement.value = props.ingredient.currentValue;
 })

@@ -18,24 +18,21 @@ export const useItemStore = defineStore('items', {
         ingredientChoices: ref([])
     }),
     getters: {
-        //doubleCount: (state) => state.count * 2,
-        totalItemCost: (state) => () => {
-            //let total = ref(0);
-            for(var i = state.currentItem.customize.length - 1; i >= 0; i--){
-                //console.log(state.currentItem.customize[i].ingredientType)
-                if(state.currentItem.customize[i].ingredientType === 1){
-                    state.currentItemTotal = parseInt(state.currentItem.customize[i].currentValue) *
-                        parseInt(state.currentItem.customize[i].ingredientPrice)
 
+        totalItemCost: (state) => () => {
+            state.currentItemTotal = 0
+            for(let i = state.currentItem.ingredients.length - 1; i >= 0; i--){
+                if(state.currentItem.ingredients[i].typeId === 1){
+                    state.currentItemTotal = parseInt(state.currentItem.ingredients[i].choices.currentValue) *
+                        parseInt(state.currentItem.ingredients[i].ingredientPrice)
                 }
-                if(state.currentItem.customize[i].ingredientType === 2){
-                    state.currentItemTotal += state.currentItem.customize[i].currentValue.ingredientPrice
+                if(state.currentItem.ingredients[i].typeId === 2){
+                    console.log(state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
+                    state.currentItemTotal += (state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
                 }
                 state.currentItemTotal += state.currentItem.basePrice
             }
-            //console.log(total)
-            //return total;
-            //console.log(item)
+
         },
         getCurrentIngredientType: (state) => (id: any) => {
             console.log(state.ingredientTypes)

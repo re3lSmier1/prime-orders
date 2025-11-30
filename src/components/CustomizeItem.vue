@@ -4,6 +4,7 @@ import {onMounted, ref, watch} from "vue";
 import router from "@/router/index.js";
 import {useRoute} from "vue-router";
 import IngredientOption from "@/components/IngredientOption.vue";
+import {item} from "@primeuix/themes/aura/dock";
 const route = useRoute()
 const itemStore = useItemStore();
 const choice = ref()
@@ -48,23 +49,24 @@ function callRewrite(event){
 
 watch(() => itemStore.currentItem, (n, o) =>{
   total.value = 0;
-  for(let i = itemStore.currentItem?.customize?.length - 1; i >= 0; i--){
-    //console.log(state.currentItem.customize[i].ingredientType)
-    //console.log(itemStore.currentItem.customize[i].ingredientType === 1)
-    if(itemStore.currentItem.customize[i].ingredientType === 1){
-      total.value = parseInt(itemStore.currentItem.customize[i].currentValue) *
-          parseInt(itemStore.currentItem.customize[i].ingredientPrice)
+  for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
+    if(itemStore.currentItem.ingredients[i].typeId === 1){
+      itemStore.currentItem.ingredients[i].choices.forEach(i => {
+        if (i.current === 1){
+          console.log(i.price + total.value)
+          total.value = i.price
+        }
+      })
     }
 
 
-    for(let i = itemStore.currentItem?.customize?.length - 1; i >= 0; i--){
-      if(itemStore.currentItem.customize[i].ingredientType === 2) {
-       // console.log(total.value + itemStore.currentItem.customize[i].currentValue.price)
-        total.value = total.value + itemStore.currentItem.customize[i].currentValue.price
+    for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
+      if(itemStore.currentItem.ingredients[i].typeId === 2) {
+        total.value += itemStore.currentItem.ingredients[i].increment.price * itemStore.currentItem.ingredients[i].increment.currentValue
       }
     }
 
-
+    console.log(total)
     total.value += itemStore.currentItem.basePrice
   }
 }, { deep: true })
@@ -75,6 +77,7 @@ onMounted(()=> {
   console.log(route.params.id)
   //alert()
   itemStore.dialogStatus = true
+
 })
 </script>
 
@@ -95,7 +98,7 @@ onMounted(()=> {
           {{ itemStore.currentItem?.name }}
         </div>
         <div class="" style="color: #777; font-weight: bold; font-size: 36px">
-          $ {{ itemStore.currentItem?.basePrice }}.00
+          $ {{ total }}.00
         </div>
         <Button severity="success" size="lg" label="Add" class="w-100" icon="pi pi-chevron-right" iconPos="right"
                 @click="pushToCart(itemStore.currentItem)"/>
