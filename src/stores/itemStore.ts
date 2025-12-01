@@ -28,7 +28,7 @@ export const useItemStore = defineStore('items', {
                 }
                 if(state.currentItem.ingredients[i].typeId === 2){
                     console.log(state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
-                    state.currentItemTotal += (state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
+                    state.currentItemTotal += state.currentItem.ingredients[i].increment.price
                 }
                 state.currentItemTotal += state.currentItem.basePrice
             }

@@ -30,7 +30,7 @@ function pushToCart(item) {
 
 function totalItemCost() {
 
-  for(var i = itemStore.currentItem.customize?.length - 1; i >= 0; i--){
+  for(let i = itemStore.currentItem.customize?.length - 1; i >= 0; i--){
     //console.log(state.currentItem.customize[i].ingredientType)
     if(itemStore.currentItem.customize[i].ingredientType === 1){
       total = parseInt(itemStore.currentItem.customize[i].currentValue) *
@@ -62,7 +62,9 @@ watch(() => itemStore.currentItem, (n, o) =>{
 
     for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
       if(itemStore.currentItem.ingredients[i].typeId === 2) {
-        total.value += itemStore.currentItem.ingredients[i].increment.price * itemStore.currentItem.ingredients[i].increment.currentValue
+        console.log(itemStore.currentItem.ingredients[i].increment.price * itemStore.currentItem.ingredients[i].increment.currentValue)
+        total.value += itemStore.currentItem.ingredients[i].increment.price
+
       }
     }
 
