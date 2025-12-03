@@ -28,49 +28,35 @@ function pushToCart(item) {
   router.push("/cart")
 }
 
-function totalItemCost() {
 
-  for(let i = itemStore.currentItem.customize?.length - 1; i >= 0; i--){
-    //console.log(state.currentItem.customize[i].ingredientType)
-    if(itemStore.currentItem.customize[i].ingredientType === 1){
-      total = parseInt(itemStore.currentItem.customize[i].currentValue) *
-          parseInt(itemStore.currentItem.customize[i].ingredientPrice)
-      total += itemStore.currentItem.basePrice
-    }
-    if(itemStore.currentItem.customize[i].ingredientType === 2){
-      total += itemStore.currentItem.customize[i].currentValue.ingredientPrice
-    }
-
-  }
-}
 function callRewrite(event){
   router.back()
 }
 
 watch(() => itemStore.currentItem, (n, o) =>{
   total.value = 0;
-  for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
+  itemStore.totalItemCost();
+
+  total.value = itemStore.currentItemTotal
+  /*for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
     if(itemStore.currentItem.ingredients[i].typeId === 1){
       itemStore.currentItem.ingredients[i].choices.forEach(i => {
         if (i.current === 1){
           console.log(i.price + total.value)
-          total.value = i.price
+          total.value += i.price
         }
       })
-    }
-
-
-    for(let i = itemStore.currentItem?.ingredients?.length - 1; i >= 0; i--){
       if(itemStore.currentItem.ingredients[i].typeId === 2) {
         console.log(itemStore.currentItem.ingredients[i].increment.price * itemStore.currentItem.ingredients[i].increment.currentValue)
-        total.value += itemStore.currentItem.ingredients[i].increment.price
+        total.value += itemStore.currentItem.ingredients[i].increment.price * itemStore.currentItem.ingredients[i].increment.currentValue
 
       }
     }
 
     console.log(total)
     total.value += itemStore.currentItem.basePrice
-  }
+
+  }*/
 }, { deep: true })
 
 onMounted(()=> {

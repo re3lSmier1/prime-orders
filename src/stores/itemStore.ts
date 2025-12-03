@@ -21,18 +21,29 @@ export const useItemStore = defineStore('items', {
 
         totalItemCost: (state) => () => {
             state.currentItemTotal = 0
+            console.log("update")
+            console.log(state.currentItemTotal)
             for(let i = state.currentItem.ingredients.length - 1; i >= 0; i--){
+                //Ingredient Choice
                 if(state.currentItem.ingredients[i].typeId === 1){
-                    state.currentItemTotal = parseInt(state.currentItem.ingredients[i].choices.currentValue) *
-                        parseInt(state.currentItem.ingredients[i].ingredientPrice)
-                }
-                if(state.currentItem.ingredients[i].typeId === 2){
-                    console.log(state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
-                    state.currentItemTotal += state.currentItem.ingredients[i].increment.price
-                }
-                state.currentItemTotal += state.currentItem.basePrice
-            }
+                    state.currentItem.ingredients[i].choices.forEach((choice: any, index: any) => {
+                        if(choice.current === 1){
+                            state.currentItemTotal += choice.price;
+                        }
+                        //console.log(`Fruit at index ${index}: ${fruit.toUpperCase()}`);
+                    });
 
+                    /*state.currentItemTotal += parseInt(state.currentItem.ingredients[i].choices.currentValue) *
+                        parseInt(state.currentItem.ingredients[i].ingredientPrice)*/
+                }
+                //Ingredient Increment
+                if(state.currentItem.ingredients[i].typeId === 2){
+                    //console.log(state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue)
+                    state.currentItemTotal += state.currentItem.ingredients[i].increment.price * state.currentItem.ingredients[i].increment.currentValue
+                }
+                console.log(state.currentItemTotal)
+            }
+            state.currentItemTotal += state.currentItem.basePrice
         },
         getCurrentIngredientType: (state) => (id: any) => {
             console.log(state.ingredientTypes)

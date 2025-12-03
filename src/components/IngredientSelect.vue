@@ -17,7 +17,7 @@ watch(selectedIngredientChoice, (n, o) =>{
 
   let choices = itemStore.currentItem.ingredients[itemStore.currentItem.ingredients?.findIndex((i: any) => i.id === n.ingredientId)]
   choices.choices.forEach((choice: any, index: any) => {
-    console.log(choice)
+    //console.log(choice)
     if(n.id === choice.id){
       choice.current = 1
     }

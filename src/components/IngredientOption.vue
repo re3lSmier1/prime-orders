@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useItemStore} from "@/stores/itemStore.ts";
-import {watch} from "vue";
+import {onMounted, watch} from "vue";
 import IngredientSelect from "@/components/IngredientSelect.vue";
 import IngredientIncrement from "@/components/IngredientIncrement.vue";
 
@@ -16,6 +16,9 @@ const props = defineProps({
 watch(()=> props.ingredient, (n, o) => {
   //alert(n)
 }, { deep: true })
+onMounted(() => {
+  itemStore.totalItemCost()
+})
 </script>
 
 <template>
